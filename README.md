@@ -76,14 +76,14 @@ Ich garantiere nicht das alles von absoluter Korrektheit, sowie Relevanz gepräg
    
   **Q2.1.1**
   - Analytische Geometrie 2
-   - Normalenvektor einer Ebene
-   - Lotfußpunktverfahren
-   - Die Hilfsebene zur Abstandsbestimmung
-   - Das Kreuzprodukt
-     - Winkelberechnung
-   - Das Spatprodukt
-   - Die Hessesche Normalform
-   - Geraden- und Ebenenscharen
+    - Normalenvektor einer Ebene
+    - Lotfußpunktverfahren
+    - Die Hilfsebene zur Abstandsbestimmung
+    - Das Kreuzprodukt
+      - Winkelberechnung
+    - Das Spatprodukt
+    - Die Hessesche Normalform
+    - Geraden- und Ebenenscharen
 
   **Q2.1.2**
   - Stochastik
