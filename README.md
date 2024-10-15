@@ -55,7 +55,7 @@ Ich garantiere nicht das alles von absoluter Korrektheit, sowie Relevanz gepräg
   **Q1.2.2**
   - Zusammengesetzte Funktionen
     - Produktregel
-  - Analytische Geometrie
+  - Analytische Geometrie 1
     - Was ist ein Vektor
       - Ortsvektoren
       - Vektorenlänge
@@ -75,14 +75,15 @@ Ich garantiere nicht das alles von absoluter Korrektheit, sowie Relevanz gepräg
     - Lagebeziehungen mit Ebenen und Geraden
    
   **Q2.1.1**
-  - Normalenvektor einer Ebene
-  - Lotfußpunktverfahren
-  - Die Hilfsebene zur Abstandsbestimmung
-  - Das Kreuzprodukt
-    - Winkelberechnung
-  - Das Spatprodukt
-  - Die Hessesche Normalform
-  - Geraden- und Ebenenscharen
+  - Analytische Geometrie 2
+   - Normalenvektor einer Ebene
+   - Lotfußpunktverfahren
+   - Die Hilfsebene zur Abstandsbestimmung
+   - Das Kreuzprodukt
+     - Winkelberechnung
+   - Das Spatprodukt
+   - Die Hessesche Normalform
+   - Geraden- und Ebenenscharen
 
   **Q2.1.2**
   - Stochastik
