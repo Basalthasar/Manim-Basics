@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage{fontspec}
+\usepackage{lipsum}
+
+\title{Font Beispiele}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Font Beispiele}
+
+% Makro
+\newcommand{\showfont}[2]{
+  \vspace{1cm}
+  \noindent {\fontspec{#1} #2:} \\
+  {\fontspec{#1} The quick brown fox jumps over the lazy dog.} \\
+  \vspace{1cm}
+}
+
+\showfont{Arial}{Arial}
+\showfont{Calibri}{Calibri}
+\showfont{Cambria}{Cambria}
+\showfont{Georgia}{Georgia}
+\showfont{Garamond}{Garamond}
+\showfont{Impact}{Impact}
+\showfont{Lucida Sans Unicode}{Lucida Sans Unicode}
+\showfont{Segoe UI}{Segoe UI}
+\showfont{Times New Roman}{Times New Roman}
+\showfont{Verdana}{Verdana}
+
+\showfont{Comic Sans MS}{Comic Sans MS}
+\showfont{Courier New}{Courier New}
+\showfont{Palatino Linotype}{Palatino Linotype}
+\showfont{Trebuchet MS}{Trebuchet MS}
+\showfont{Fira Sans}{Fira Sans}
+\showfont{Open Sans}{Open Sans}
+\showfont{Roboto}{Roboto}
+\showfont{Noto Sans}{Noto Sans}
+\showfont{Montserrat}{Montserrat}
+\showfont{Lato}{Lato}
+
+\end{document}

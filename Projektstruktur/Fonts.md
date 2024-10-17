@@ -1,7 +1,3 @@
-Text: New Century SchoolBook
+Text: Georgia
 
-```latex
-\usepackage{txfonts}
-\usepackage[no-math]{fontspec}
-\setmainfont[Mapping=tex-text]{Minion Pro}
-\usepackage[defaultmathsizes]{mathastext}
+Math: Cambria

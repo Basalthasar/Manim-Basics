@@ -1,6 +1,13 @@
 # Import
 from manim import * 
 
+"""
+Bottom left corner (-4 | -7.1)
+
+Top right edge (4 | 7.1)
+"""
+
+
 # Eine dedizierte Klasse eignet sich für eine Szene
 class HelloWorld(Scene):
     def construct(self):
