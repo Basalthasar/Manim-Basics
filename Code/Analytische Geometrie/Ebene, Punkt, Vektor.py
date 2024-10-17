@@ -1,5 +1,8 @@
 from manim import *
 
+# TODO: Wie verkleinere ich folgendes. So, das es auf (auch) auf der Titelfolie anschaulich abgebildet sein kann
+# anschaulich, heh
+
 class Obj_im_Raum(ThreeDScene):
     def construct(self):
         axes = ThreeDAxes()
