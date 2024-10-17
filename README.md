@@ -58,7 +58,6 @@ Ich garantiere nicht das alles von absoluter Korrektheit, sowie Relevanz gepräg
   - Analytische Geometrie 1
     - Was ist ein Vektor
       - Ortsvektoren
-      - Vektorenlänge
       - Vektorenorientation und Richtung
       - Vektoroperationen
         - Das Skalarprodukt

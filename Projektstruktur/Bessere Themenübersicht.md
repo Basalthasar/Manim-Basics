@@ -49,25 +49,24 @@
       - Produktregel
 
 **Analytische Geometrie**
-    - Was ist ein Vektor
+    - Definition eines Vektors
       - Ortsvektoren
-      - Vektorenlänge
       - Vektorenorientation und Richtung
       - Vektoroperationen
         - Das Skalarprodukt
           - Winkelberechnung
-    - Abstandsprobleme
     - Geradengleichungen
     - Lagebeziehungen mit Geraden
       - sukzessive (_Baum_)
       - Matrixinterpretation
-    - Ebenen
+    - Abstandsprobleme
+      - Lotfußpunktverfahren
+    - Ebenen (unterteilen in 2 Teile)
       - Parameterdarstellung
       - Koordinatenform
       - Normalenform
+      - Normalenvektor
     - Lagebeziehungen mit Ebenen und Geraden
-    - Normalenvektor einer Ebene
-    - Lotfußpunktverfahren
     - Die Hilfsebene zur Abstandsbestimmung
     - Das Kreuzprodukt
       - Winkelberechnung
