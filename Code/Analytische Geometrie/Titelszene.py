@@ -1,9 +1,11 @@
 from manim import *
 
+config.frame_rate = 60
+
 class Analytische_Geometrie_t1(Scene):
     def construct(self):
         # Titel initialisieren und anzeigen
-        Titel = Text("Analytische Geometrie1", font="Georgia", font_size=72) 
+        Titel = Text("Analytische Geometrie", font="Georgia", font_size=72) 
         self.play(Write(Titel))
 
         self.wait(1)
@@ -14,7 +16,6 @@ class Analytische_Geometrie_t1(Scene):
 
         self.wait(1)
 
-        # Stichpunkte gruppieren und anzeigen
         Stichpunkte = VGroup(
             self.Stichpunkt("Definition eines Vektors"),
             self.Stichpunkt("Geradengleichungen"),
@@ -31,6 +32,17 @@ class Analytische_Geometrie_t1(Scene):
 
         self.play(Write(Stichpunkte), run_time=7.5)
 
+        self.wait(3)
+
+        erst_stp = Stichpunkte[0]
+
+        self.play(
+            Titel.animate.shift(UP).set_opacity(0),  # Fade out Titel
+            erst_stp.animate.move_to(UP*2.5).scale(4),  # Ersten stichpunkt hoch und vergrößern
+            *[FadeOut(sp, shift=DOWN) for sp in Stichpunkte[1:]],  # restlichen Stichpunkte weg
+            run_time=1.5
+        )
+
         self.wait(1)
 
     def Stichpunkt(self, content, size=18):
@@ -43,3 +55,4 @@ class Analytische_Geometrie_t1(Scene):
         
         # Gruppiertes Resultat
         return VGroup(Stichpunkt, content)
+
