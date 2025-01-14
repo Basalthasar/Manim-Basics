@@ -1,94 +1,94 @@
-# Manim-Basics
-Work in Progress. <br>
-Manim lernen, indem ich die Themen des Mathematik NRW-Abitur 2025 LK zusammenfasse. <br>
-Ich garantiere nicht das alles von absoluter Korrektheit, sowie Relevanz geprägt ist. <br>
+# Manim-Basics  
+Work in Progress. <br>  
+Manim lernen, indem ich die Themen des Mathematik NRW-Abitur 2025 LK zusammenfasse. <br>  
+Ich garantiere nicht das alles von absoluter Korrektheit, sowie Relevanz geprägt ist. <br>  
 
-# Themenübersicht
+# Themenübersicht  
 
-**Extremwertbestimmung**
-    - Bestimmung einer Ableitung
-        - Ableitungsregeln
-    - Bestimmen der notwendigen, sowie hinreichenden Bedingung
-    - Berechnung der Stelle
-    - Hoch-, Tief-, und Wendepunkt
-    - Extremalprobleme
-        - Problem bestimmen und in Funktion umwandeln
-        - Extremwertbestimmung durchführen
-        - Kontextabhängig interpretieren
+**Extremwertbestimmung** <br>  
+- Bestimmung einer Ableitung <br>  
+  - Ableitungsregeln <br>  
+- Bestimmen der notwendigen, sowie hinreichenden Bedingung <br>  
+- Berechnung der Stelle <br>  
+- Hoch-, Tief-, und Wendepunkt <br>  
+- Extremalprobleme <br>  
+  - Problem bestimmen und in Funktion umwandeln <br>  
+  - Extremwertbestimmung durchführen <br>  
+  - Kontextabhängig interpretieren <br>  
 
-**Funktionsscharen**
-    - Ableitung von Parameterisierten Funktionen
-    - Extremwertbestimmung
+**Funktionsscharen** <br>  
+- Ableitung von Parameterisierten Funktionen <br>  
+- Extremwertbestimmung <br>  
 
-**Lineare Gleichungssysteme**
-    - Matrixschreibweise
-    - Lösen von Gleichungssystemen
-      - Einsetzungsverfahren
-      - Einsetzungsverfahren
-      - Additionsverfahren
-      - Gauß-Algorithmus / Verfahren
+**Lineare Gleichungssysteme** <br>  
+- Matrixschreibweise <br>  
+- Lösen von Gleichungssystemen <br>  
+  - Einsetzungsverfahren <br>  
+  - Einsetzungsverfahren <br>  
+  - Additionsverfahren <br>  
+  - Gauß-Algorithmus / Verfahren <br>  
 
-**Integralrechnung**
-    - Was beschreibt ein Integral
-    - Bestimmung Näherungsweise
-    - Integrationsregeln
-    - Hauptsatz und Schreibweise
-    - Rotationskörper
-        - Betragsfunktion
-        - _Herleitung "Formel"_
-        - Uneigentliche Integrale
+**Integralrechnung** <br>  
+- Was beschreibt ein Integral <br>  
+- Bestimmung Näherungsweise <br>  
+- Integrationsregeln <br>  
+- Hauptsatz und Schreibweise <br>  
+- Rotationskörper <br>  
+  - Betragsfunktion <br>  
+  - _Herleitung "Formel"_ <br>  
+  - Uneigentliche Integrale <br>  
 
-**Exponentialfunktionen**
-    - Potenz- und Logarithmusgesetze
-    - Aufstellen von Exponentialgleichungen
-    - Funktionsgraphen
-    - _"Konvertierung"_ in **e**ulersche-Funktionen
-    - Ableiten von eulerschen Funktionen
-      - Kettenregel
-    - Integrieren von eulerschen Funktionen
-      - Lineare Substitution
-      - (Partielle Integration)
-    - Beschränktes Wachstum
-    - Regressionsfunktionen
-    - Zusammengesetzte Funktionen
-      - Produktregel
+**Exponentialfunktionen** <br>  
+- Potenz- und Logarithmusgesetze <br>  
+- Aufstellen von Exponentialgleichungen <br>  
+- Funktionsgraphen <br>  
+- _"Konvertierung"_ in **e**ulersche-Funktionen <br>  
+- Ableiten von eulerschen Funktionen <br>  
+  - Kettenregel <br>  
+- Integrieren von eulerschen Funktionen <br>  
+  - Lineare Substitution <br>  
+  - (Partielle Integration) <br>  
+- Beschränktes Wachstum <br>  
+- Regressionsfunktionen <br>  
+- Zusammengesetzte Funktionen <br>  
+  - Produktregel <br>  
 
-**Analytische Geometrie**
-    - Definition eines Vektors
-      - Ortsvektoren
-      - Vektorenorientation und Richtung
-      - Vektoroperationen
-        - Das Skalarprodukt
-          - Winkelberechnung
-    - Geradengleichungen
-    - Lagebeziehungen mit Geraden
-      - sukzessive (_Baum_)
-      - Matrixinterpretation
-    - Abstandsprobleme
-      - Lotfußpunktverfahren
-    - Ebenen (unterteilen in 2 Teile)
-      - Parameterdarstellung
-      - Koordinatenform
-      - Normalenform
-      - Normalenvektor
-    - Lagebeziehungen mit Ebenen und Geraden
-    - Die Hilfsebene zur Abstandsbestimmung
-    - Das Kreuzprodukt
-      - Winkelberechnung
-    - Das Spatprodukt
-    - Die Hessesche Normalform
-    - Geraden- und Ebenenscharen
+**Analytische Geometrie** <br>  
+- Definition eines Vektors <br>  
+  - Ortsvektoren <br>  
+  - Vektorenorientation und Richtung <br>  
+  - Vektoroperationen <br>  
+    - Das Skalarprodukt <br>  
+      - Winkelberechnung <br>  
+- Geradengleichungen <br>  
+- Lagebeziehungen mit Geraden <br>  
+  - sukzessive (_Baum_) <br>  
+  - Matrixinterpretation <br>  
+- Abstandsprobleme <br>  
+  - Lotfußpunktverfahren <br>  
+- Ebenen (unterteilen in 2 Teile) <br>  
+  - Parameterdarstellung <br>  
+  - Koordinatenform <br>  
+  - Normalenform <br>  
+  - Normalenvektor <br>  
+- Lagebeziehungen mit Ebenen und Geraden <br>  
+- Die Hilfsebene zur Abstandsbestimmung <br>  
+- Das Kreuzprodukt <br>  
+  - Winkelberechnung <br>  
+- Das Spatprodukt <br>  
+- Die Hessesche Normalform <br>  
+- Geraden- und Ebenenscharen <br>  
 
-**Stochastik**
-    - Grundlagen
-      - (Bedingte) Wahrscheinlichkeiten
-      - (Un-) Abhängigkeit von Ereignissen
-    - Kombinatorik
-      - Fakultäten
-      - Binomialkoeffizient
-    - Diskrete Verteilungen
-      - Binomialverteilungen
-        - Bernoulli-Ketten
-        - Bernoulli Formel
-    - Hypergeometrische Verteilungen
-      - Normalverteilung
+**Stochastik** <br>  
+- Grundlagen <br>  
+  - (Bedingte) Wahrscheinlichkeiten <br>  
+  - (Un-) Abhängigkeit von Ereignissen <br>  
+- Kombinatorik <br>  
+  - Fakultäten <br>  
+  - Binomialkoeffizient <br>  
+- Diskrete Verteilungen <br>  
+  - Binomialverteilungen <br>  
+    - Bernoulli-Ketten <br>  
+    - Bernoulli Formel <br>  
+- Hypergeometrische Verteilungen <br>  
+  - Normalverteilung <br>  
