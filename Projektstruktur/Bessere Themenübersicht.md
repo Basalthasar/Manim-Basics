@@ -75,4 +75,15 @@
     - Geraden- und Ebenenscharen
 
 **Stochastik**
-    - ...
+    - Grundlagen
+      - (Bedingte) Wahrscheinlichkeiten
+      - (Un-) Abhängigkeit von Ereignissen
+    - Kombinatorik
+      - Fakultäten
+      - Binomialkoeffizient
+    - Diskrete Verteilungen
+      - Binomialverteilungen
+        - Bernoulli-Ketten
+        - Bernoulli Formel
+    - Hypergeometrische Verteilungen
+      - Normalverteilung
