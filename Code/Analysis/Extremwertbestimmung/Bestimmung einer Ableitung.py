@@ -145,6 +145,46 @@ class Ableitung(Scene):
         
         self.play(Transform(secant_line, tangent_line), run_time=2)
 
-        self.wait(2)
+        self.wait(1)
 
-        # TODO: Steigungsdreieck an Tangente einfügen, (f(x_0 + h) - f(x_0)) / h aufstellen
+        self.play(Funktionsterm.animate.shift(UP*1.5 + LEFT*3), run_time=0.5)
+
+        # Steigungsdreieck an der Tangente
+        x0 = 1.5
+        h = 0.5
+        x1 = x0 + h
+        y0 = 0.5 * x0**2
+        y1 = 0.5 * x0**2 + (x1 - x0) * x0 + 0.03
+
+        # Punkte des Steigungsdreiecks
+        p3 = Dot(Achsen.c2p(x1, y0), color=BLUE)
+        p4 = Dot(Achsen.c2p(x1, y1), color=BLUE)
+
+        # Linien des Steigungsdreiecks
+        horizontal_line = DashedLine(start=p2.get_center(), end=p3.get_center(), color=WHITE)
+        vertical_line = DashedLine(start=p3.get_center(), end=p4.get_center(), color=WHITE)
+        horizontal_line.set_z_index(-1)
+        vertical_line.set_z_index(-1)
+
+        self.play(FadeIn(p3), FadeIn(p4))
+        self.play(Create(horizontal_line), Create(vertical_line))
+
+        # Steigungsdreieck beschriften
+        delta_x = MathTex(r"\Delta x", color=BLUE).next_to(horizontal_line, DOWN)
+        delta_y = MathTex(r"\Delta y", color=BLUE).next_to(vertical_line, RIGHT)
+
+        self.play(Write(delta_x), Write(delta_y))
+
+        # Steigungsdreieck Formel
+        slope_formula = MathTex(
+            r"\text{Steigung} = \frac{\Delta y}{\Delta x}",
+            r"\\",
+            r"= \frac{f(x_0 + h) - f(x_0)}{h}",
+            color=BLUE
+        ) # TOFIX: Limes hinzufügen
+        slope_formula.next_to(Stichpunkt2, DOWN)
+        slope_formula.scale(0.75)
+
+        self.play(Write(slope_formula))
+
+        self.wait(2)
