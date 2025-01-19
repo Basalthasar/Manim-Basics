@@ -208,65 +208,68 @@ class Ableitung(Scene):
             run_time=2
         )
 
-        # Ableiten der FUnktion, Ableitungsregeln
+        # Ableiten der Funktion, Ableitungsregeln
         self.play(funktionsterm.animate.shift(UP, LEFT))
 
-        _funktionsterm = MathTex(r"f'(x) = \frac{1}{2} \cdot 2x^{2-1} = x", color=GOLD)
-        _funktionsterm.set_color(RED)
-        _funktionsterm.scale(0.75)
-        _funktionsterm.next_to(funktionsterm, DOWN*0.5)
+        # Darstellung der Ableitung der Funktion
+        ableitungsterm = MathTex(r"f'(x) = \frac{1}{2} \cdot 2x^{2-1} = x", color=GOLD)
+        ableitungsterm.set_color(RED)
+        ableitungsterm.scale(0.75)
+        ableitungsterm.next_to(funktionsterm, DOWN*0.5)
 
-        # Terme = VGroup(funktionsterm, _funktionsterm)
-        # Terme.arrange(DOWN, aligned_edge=LEFT, buff=0.1)
-        # Terme.shift(LEFT)
-
+        # Plot der Ableitungsfunktion
         ableitung = achsen.plot(lambda x: x, color=RED)
         
-        _stichpunkt1 = MathTex(
+        # Erklärung der Ableitung
+        erklärung_ableitung = MathTex(
             r"\text{Die Ableitung}", r"\text{ f' }", r"\text{der Funktion}", r"\text{ f}",
             r"\\",
             r"\text{ist die Steigung der Tangente und}",
             r"\\",
             r"\text{damit der Funktion}", r"\text{ an jedem Punkt}", r"."
         )
-        _stichpunkt1[1].set_color(RED)
-        _stichpunkt1[3].set_color(GOLD)
-        _stichpunkt1[8].set_color(PURE_RED)
-        _stichpunkt1.scale(0.5)
-        _stichpunkt1.next_to(graph_ganz, RIGHT*2)
-        _stichpunkt1.shift(UP*1.85, LEFT*0.3)
+        erklärung_ableitung[1].set_color(RED)
+        erklärung_ableitung[3].set_color(GOLD)
+        erklärung_ableitung[8].set_color(PURE_RED)
+        erklärung_ableitung.scale(0.5)
+        erklärung_ableitung.next_to(graph_ganz, RIGHT*2)
+        erklärung_ableitung.shift(UP*1.85, LEFT*0.3)
 
+        # Animation der Ableitungsfunktion und der Erklärung
         self.play(Create(ableitung), 
-                Write(_funktionsterm),
-                Write(_stichpunkt1),
-                run_time=2
-                )
+              Write(ableitungsterm),
+              Write(erklärung_ableitung),
+              run_time=2
+             )
 
-        """
-        2. Somit gilt für jede Funktion...
-        3. "Allg." Ableitungsregel definieren und einblenden 
-        """
+        # Trennlinie für die nächste Erklärung
         trennlinie = Line(
-            start=_stichpunkt1.get_bottom() + DOWN * 0.1 + LEFT * 2.1,
-            end=_stichpunkt1.get_bottom() + DOWN * 0.1 + RIGHT * 6,
+            start=erklärung_ableitung.get_bottom() + DOWN * 0.1 + LEFT * 2.1,
+            end=erklärung_ableitung.get_bottom() + DOWN * 0.1 + RIGHT * 6,
             color=WHITE,
             stroke_width=2 
         )
 
-        _stichpunkt2 = MathTex(
-                r"\text{Somit gilt für jede Funktion:}",
-                r"\\", r"\\",
-                r"f(x) = x^n \Rightarrow f'(x) = n \cdot x^{n-1}",
-                r"\\", r"\\",
-                r"\text{Wobei f'(x) die Ableitung von f(x) ist.}",
-            )
-        _stichpunkt2.next_to(_stichpunkt1, DOWN)
-        _stichpunkt2.scale(0.5)
+        # Weitere Erklärungen zur Ableitung
+        erklärung_weiter_1 = MathTex(r"\text{Somit gilt für jede Funktion:}")
+        erklärung_weiter_2 = MathTex(r"f(x) = x^n \Rightarrow f'(x) = n \cdot x^{n-1}")
+        erklärung_weiter_3 = MathTex(r"f(x)", r"\text{ : Die Funktion}")
+        erklärung_weiter_4 = MathTex(r"f'(x)", r"\text{ : Die Ableitung der Funktion}")
 
+        erklärung_weiter_3.scale(0.6)
+        erklärung_weiter_4.scale(0.6)
+
+        erklärung_weiter = VGroup(erklärung_weiter_1, erklärung_weiter_2, erklärung_weiter_3, erklärung_weiter_4)
+        erklärung_weiter.arrange(DOWN, aligned_edge=LEFT, buff=0.3)
+        erklärung_weiter.next_to(erklärung_ableitung, DOWN, aligned_edge=LEFT)
+        erklärung_weiter.scale(0.6)
+        erklärung_weiter.shift(LEFT*1.1)
+
+        # Animation der weiteren Erklärungen
         self.play(
             Create(trennlinie),
-            Write(_stichpunkt2),
+            Write(erklärung_weiter),
             run_time=2
-            )
+        )
 
         self.wait(2)
