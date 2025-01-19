@@ -187,3 +187,30 @@ class Ableitung(Scene):
         self.play(Write(stichpunkt3))
 
         self.wait(2)
+
+        # Elemente ausblenden
+        self.play(
+            FadeOut(tangente),
+            FadeOut(p1),
+            FadeOut(p1_beschriftung),
+            FadeOut(p2),
+            FadeOut(p2_beschriftung),
+            FadeOut(p3),
+            FadeOut(p4),
+            FadeOut(sekantenlinie),
+            FadeOut(horizontale_linie),
+            FadeOut(vertikale_linie),
+            FadeOut(stichpunkt1),
+            FadeOut(stichpunkt2),
+            FadeOut(stichpunkt3),
+            FadeOut(delta_x),
+            FadeOut(delta_y),
+            run_time=2
+        )
+
+        # Ableiten der FUnktion, Ableitungsregeln
+
+        _funktionsterm = MathTex(r"f'(x) = 1/2 \cdot 2x^(2-1) = x", color=GOLD)
+        _funktionsterm.next_to(funktionsterm, DOWN, LEFT*1.5)
+
+        self.wait(2)
