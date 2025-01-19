@@ -243,9 +243,30 @@ class Ableitung(Scene):
                 )
 
         """
-        1. Strich unter _stichpunkt1
-        2. Somit gilt für jede Funktion
+        2. Somit gilt für jede Funktion...
         3. "Allg." Ableitungsregel definieren und einblenden 
         """
+        trennlinie = Line(
+            start=_stichpunkt1.get_bottom() + DOWN * 0.1 + LEFT * 2.1,
+            end=_stichpunkt1.get_bottom() + DOWN * 0.1 + RIGHT * 6,
+            color=WHITE,
+            stroke_width=2 
+        )
+
+        _stichpunkt2 = MathTex(
+                r"\text{Somit gilt für jede Funktion:}",
+                r"\\", r"\\",
+                r"f(x) = x^n \Rightarrow f'(x) = n \cdot x^{n-1}",
+                r"\\", r"\\",
+                r"\text{Wobei f'(x) die Ableitung von f(x) ist.}",
+            )
+        _stichpunkt2.next_to(_stichpunkt1, DOWN)
+        _stichpunkt2.scale(0.5)
+
+        self.play(
+            Create(trennlinie),
+            Write(_stichpunkt2),
+            run_time=2
+            )
 
         self.wait(2)
