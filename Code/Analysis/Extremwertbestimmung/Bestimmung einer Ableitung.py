@@ -209,8 +209,43 @@ class Ableitung(Scene):
         )
 
         # Ableiten der FUnktion, Ableitungsregeln
+        self.play(funktionsterm.animate.shift(UP, LEFT))
 
-        _funktionsterm = MathTex(r"f'(x) = 1/2 \cdot 2x^(2-1) = x", color=GOLD)
-        _funktionsterm.next_to(funktionsterm, DOWN, LEFT*1.5)
+        _funktionsterm = MathTex(r"f'(x) = \frac{1}{2} \cdot 2x^{2-1} = x", color=GOLD)
+        _funktionsterm.set_color(RED)
+        _funktionsterm.scale(0.75)
+        _funktionsterm.next_to(funktionsterm, DOWN*0.5)
+
+        # Terme = VGroup(funktionsterm, _funktionsterm)
+        # Terme.arrange(DOWN, aligned_edge=LEFT, buff=0.1)
+        # Terme.shift(LEFT)
+
+        ableitung = achsen.plot(lambda x: x, color=RED)
+        
+        _stichpunkt1 = MathTex(
+            r"\text{Die Ableitung}", r"\text{ f' }", r"\text{der Funktion}", r"\text{ f}",
+            r"\\",
+            r"\text{ist die Steigung der Tangente und}",
+            r"\\",
+            r"\text{damit der Funktion}", r"\text{ an jedem Punkt}", r"."
+        )
+        _stichpunkt1[1].set_color(RED)
+        _stichpunkt1[3].set_color(GOLD)
+        _stichpunkt1[8].set_color(PURE_RED)
+        _stichpunkt1.scale(0.5)
+        _stichpunkt1.next_to(graph_ganz, RIGHT*2)
+        _stichpunkt1.shift(UP*1.85, LEFT*0.3)
+
+        self.play(Create(ableitung), 
+                Write(_funktionsterm),
+                Write(_stichpunkt1),
+                run_time=2
+                )
+
+        """
+        1. Strich unter _stichpunkt1
+        2. Somit gilt für jede Funktion
+        3. "Allg." Ableitungsregel definieren und einblenden 
+        """
 
         self.wait(2)
