@@ -1,6 +1,14 @@
 from manim import *
 
 class Extremata(Scene):
+
+    def f_strich(self, x):
+        return 3*x**2 + 2*x
+
+    def tangente(self, x0):
+        slope = self.f_strich(x0)
+        return lambda x: slope * (x - x0) + (x0**3 + x0**2)
+
     def construct(self):
         # Titel
         titel = Text("Extremstellen", font="Georgia", font_size=96) 
@@ -8,8 +16,6 @@ class Extremata(Scene):
         self.play(titel.animate.scale(0.65).shift(UP*3.1), run_time=2)
         self.wait(1)
 
-        # Funktion, Achsen und Graph
-        # TOFIX: Schrittweite der Achsenbeschriftung verkleinern
         achsen = Axes(
             x_range=[-1.5, 0.875],
             y_range=[-0.5, 0.5],
@@ -23,8 +29,8 @@ class Extremata(Scene):
         funktion = achsen.plot(lambda x: x**3 + x**2, x_range=[-1.25, 0.625], color=GOLD)
 
         funktionsterm = MathTex("f(x) = x^3 + x^2", color=GOLD)
-        funktionsterm.next_to(funktion, buff=0)
-        funktionsterm.shift(UP)
+        funktionsterm.next_to(funktion, LEFT)
+        funktionsterm.shift(UP*2).shift(RIGHT*4)
 
         graph_ganz = VGroup(achsen, achsenbeschriftung, funktion, funktionsterm)
         graph_ganz.scale(0.95).shift(DOWN*0.75)
@@ -42,17 +48,17 @@ class Extremata(Scene):
 
         # Extremstellen
         p1 = Dot(achsen.c2p(-1.25, (-1.25)**3 + (-1.25)**2), color=PURE_RED)
-        p1_beschriftung = MathTex("p_1", color=PURE_RED).next_to(p1, (RIGHT + UP))
-        p1_ges = VGroup(p1, p1_beschriftung)
+        p1_beschriftung = MathTex("p_1", color=PURE_RED)
+        tangente_p1 = achsen.plot(self.tangente(achsen.p2c(p1.get_center()[0])[0]), x_range=[-1.5, 0.8], color=PURE_RED)
+        p1_ges = VGroup(p1, p1_beschriftung, tangente_p1)
+        
         p2 = Dot(achsen.c2p(0.625, 0.625**3 + 0.625**2), color=PURE_RED)
-        p2_beschriftung = MathTex("p_2", color=PURE_RED).next_to(p2, (DOWN))
-        p2_ges = VGroup(p2, p2_beschriftung)
+        p2_beschriftung = MathTex("p_2", color=PURE_RED)
+        tangente_p2 = achsen.plot(self.tangente(achsen.p2c(p2.get_center()[0])[0]), x_range=[-1.5, 0.8], color=PURE_RED)
+        p2_ges = VGroup(p2, p2_beschriftung, tangente_p2)
 
         ursprung_l = achsen.c2p(-1.25, (-1.25)**3 + (-1.25)**2)
         ursprung_r = achsen.c2p(0.625, 0.625**3 + 0.625**2)
-
-        ende_l = achsen.c2p(-(2/3), funktion.underlying_function(-(2/3)))
-        ende_r = achsen.c2p(0, 0)
 
         pfad_l = funktion.get_subcurve((-1.25 - funktion.t_min) / (funktion.t_max - funktion.t_min), (-(2/3) - funktion.t_min) / (funktion.t_max - funktion.t_min))
         pfad_r = funktion.get_subcurve((0 - funktion.t_min) / (funktion.t_max - funktion.t_min), (0.625 - funktion.t_min) / (funktion.t_max - funktion.t_min))
@@ -63,20 +69,23 @@ class Extremata(Scene):
 
         kombinierter_pf_r = VMobject()
         kombinierter_pf_r.set_points_as_corners([ursprung_r])
-        kombinierter_pf_r.append_points(pfad_r.get_points())
+        kombinierter_pf_r.append_points(pfad_r.get_points()).reverse_points()
+        kombinierter_pf_r.append_points(achsen.c2p(0, 0))
 
-        self.play(
-            Create(p1),
-            Write(p1_beschriftung),
-            Create(p2),
-            Write(p2_beschriftung),
-            run_time=1.5
-        )
+        self.play(Create(p1), Create(p2), run_time=1.5)
+        self.play(MoveAlongPath(p1, kombinierter_pf_l), MoveAlongPath(p2, kombinierter_pf_r), run_time=2)
 
-        self.play(
-            MoveAlongPath(p1_ges, kombinierter_pf_l),
-            MoveAlongPath(p2_ges, kombinierter_pf_r),
-            run_time=2
-        )
+        p1_beschriftung.next_to(p1, UP)
+        p2_beschriftung.next_to(p2, (UP + RIGHT * 0.5))
+        self.play(Write(p1_beschriftung), Write(p2_beschriftung), run_time=0.5)
+        
+        stichpunkt_1 = BulletedList(MathTex("Steigung im Punkt p_1: f'(p_1) = 0", color=WHITE), MathTex("Steigung im Punkt p_2: f'(p_2) = 0", color=WHITE)) # TODO: p_1 und p_2 rot machen, stichpunkte fertig implementieren
+
+        tangente_p1 = achsen.plot(self.tangente(achsen.p2c(p1.get_center()[0])[0]), x_range=[-1.5, 0.8], color=PURE_RED)
+        tangente_p2 = achsen.plot(self.tangente(achsen.p2c(p2.get_center()[0])[0]), x_range=[-1.5, 0.8], color=PURE_RED)
+
+        self.play(GrowFromCenter(tangente_p1), GrowFromCenter(tangente_p2), run_time=1)
+        self.wait(1)
+        self.play(ShrinkToCenter(tangente_p1), ShrinkToCenter(tangente_p2), run_time=1)
 
         self.wait(2)
