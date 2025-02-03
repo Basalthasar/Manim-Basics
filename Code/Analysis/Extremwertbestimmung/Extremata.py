@@ -1,4 +1,5 @@
 from manim import *
+import numpy as np
 
 class Extremata(Scene):
 
@@ -32,9 +33,12 @@ class Extremata(Scene):
         achsenbeschriftung = achsen.get_axis_labels(x_label="x", y_label="y")
         achsen.add_coordinates()
 
-        # Funktion plotten
+        # Funktionen plotten
         funktion = achsen.plot(lambda x: x**3 + x**2, x_range=[-1.25, 0.625], color=GOLD)
         Ableitung = achsen.plot(lambda x: 3*x**2 + 2*x, x_range=[-0.75, 0.2], color=GOLD_E)
+
+        Ableitung_2 = achsen.plot(lambda x: 6*x + 2, x_range=[-0.4, -0.266], color=DARK_BROWN)
+        Ableitung_2.set_opacity(0)
 
         # Funktionsterm anzeigen
         funktionsterm = MathTex("f(x) = x^3 + x^2", color=GOLD)
@@ -45,7 +49,10 @@ class Extremata(Scene):
         abgl_term = MathTex("f'(x) = 3x^2 + 2x", color=GOLD_E)
         abgl_term.next_to(funktionsterm, DOWN)
 
-        graph_ganz = VGroup(achsen, achsenbeschriftung, funktion, funktionsterm, Ableitung, abgl_term)
+        abgl_term_2 = MathTex("f''(x) = 6x + 2", color=DARK_BROWN)
+        abgl_term_2.set_opacity(0)
+
+        graph_ganz = VGroup(achsen, achsenbeschriftung, funktion, funktionsterm, Ableitung, abgl_term, Ableitung_2, abgl_term_2) 
         graph_ganz.scale(0.95).shift(DOWN*0.75)
 
         # Achsen und Graph animieren
@@ -100,7 +107,7 @@ class Extremata(Scene):
         self.play(Create(p1), Create(p2), run_time=1.5)
         self.play(MoveAlongPath(p1, kombinierter_pf_l), MoveAlongPath(p2, kombinierter_pf_r), run_time=2)
 
-        p1_beschriftung.next_to(p1, DOWN * 0.55).scale(0.8)
+        p1_beschriftung.next_to(p1, (UP * 0.35 + RIGHT * 0.5)).scale(0.8)
         p2_beschriftung.next_to(p2, (UP * 0.55 + RIGHT * 0.5)).scale(0.8)
         self.play(Write(p1_beschriftung), Write(p2_beschriftung), run_time=0.5)
         
@@ -111,6 +118,8 @@ class Extremata(Scene):
         stichpunkt_2 = Text("Unterschiedliche Arten von\nExtremstellen:", color=WHITE).scale(0.5)
         stichpunkt_2_2_1 = BulletedList("Hochpunkt $p_1$", color=WHITE).scale(0.6)
         stichpunkt_2_2_2 = BulletedList("Tiefpunkt $p_2$", color=WHITE).scale(0.6)
+
+        # Colorcoding 
         stichpunkt_1_1[0][16:18].set_color(BLUE_E) # zählt: (Leer-)Zeichen, unterstufige Zeichen, vermutl. Exponenten -- Zählt nicht: _ oder $
         stichpunkt_1_1[0][22:24].set_color(BLUE_E)
         stichpunkt_1_2[0][16:18].set_color(RED_E)
@@ -137,5 +146,62 @@ class Extremata(Scene):
         self.play(FocusOn(p1))
         self.play(Write(stichpunkt_2_2_2), run_time=0.5)
         self.play(FocusOn(p2))
+        
+        self.wait(2)
+
+        self.play(
+            Unwrite(stichpunkt_1),
+            Unwrite(stichpunkt_1_1),
+            Unwrite(stichpunkt_1_2),
+            Unwrite(stichpunkt_2),
+            Unwrite(stichpunkt_2_2_1),
+            Unwrite(stichpunkt_2_2_2),
+        )
+        self.wait(speed)
+
+        # Hinreichende Bedingung für HP und TP
+        # Stichpunkte
+        _stichpunkt_1 = Text("Rechnerische Bestimmung\nder Art der Extremstellen").scale(0.5)
+        _stichpunkt_1_1 = BulletedList("Hochpunkt: $f''(p_1) < 0$", color=WHITE).scale(0.5)
+        _stichpunkt_1_2 = BulletedList("Tiefpunkt: $f''(p_2) > 0$", color=WHITE).scale(0.5)
+        _stichpunkt_1_3 = BulletedList(r"Es gilt: $f''(x) \ne 0$", color=WHITE).scale(0.5)
+        _stichpunkte = VGroup(_stichpunkt_1, _stichpunkt_1_1, _stichpunkt_1_2, _stichpunkt_1_3)
+        _stichpunkte.arrange(DOWN, aligned_edge=LEFT).next_to(graph_ganz, RIGHT, buff=0.2)
+
+        # Colorcoding
+        _stichpunkt_1_1[0][15:17].set_color(BLUE_E)
+        _stichpunkt_1_2[0][15:17].set_color(RED_E)
+
+        # 2. Ableitung animieren
+        self.play(
+            funktionsterm.animate.shift(UP*0.85), 
+            abgl_term.animate.shift(UP*0.85), 
+            run_time=0.5
+        )
+
+        self.wait(speed)
+
+        abgl_term_2.next_to(abgl_term, DOWN)
+
+        for i in range(60):
+            self.play(
+                abgl_term_2.animate.set_opacity(i/60),
+                Ableitung_2.animate.set_opacity(i/60),
+                run_time=0.025
+            )
+
+        # Stichpunkte
+        for stichpunkt in _stichpunkte:
+            self.play(Write(stichpunkt), run_time=0.35)
+            self.wait(0.35)
+
+        # FIXME: Warum highlightet der in der mitte von nirgendwo, aber nicht die < und > der beiden Stichpunkte
+        # self.play(
+        #     Circumscribe(_stichpunkt_1_1[0][21:22], color=YELLOW),
+        #     Circumscribe(_stichpunkt_1_2[0][21:22], color=YELLOW),
+        #     run_time=1
+        # )
 
         self.wait(2)
+
+        # TODO: Wendepunkte
