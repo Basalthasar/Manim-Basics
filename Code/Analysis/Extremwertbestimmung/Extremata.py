@@ -195,12 +195,11 @@ class Extremata(Scene):
             self.play(Write(stichpunkt), run_time=0.35)
             self.wait(0.35)
 
-        # FIXME: Warum highlightet der in der mitte von nirgendwo, aber nicht die < und > der beiden Stichpunkte
-        # self.play(
-        #     Circumscribe(_stichpunkt_1_1[0][21:22], color=YELLOW),
-        #     Circumscribe(_stichpunkt_1_2[0][21:22], color=YELLOW),
-        #     run_time=1
-        # )
+        self.play(
+            Circumscribe(_stichpunkt_1_1[0][18:19], color=YELLOW),
+            Circumscribe(_stichpunkt_1_2[0][18:19], color=YELLOW),
+            run_time=1
+        )
 
         self.wait(2)
 
