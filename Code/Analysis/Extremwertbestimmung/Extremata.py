@@ -203,4 +203,60 @@ class Extremata(Scene):
 
         self.wait(2)
 
-        # TODO: Wendepunkte
+        # Szene aufräumen
+
+        self.play(
+            Unwrite(_stichpunkt_1),
+            Unwrite(_stichpunkt_1_1),
+            Unwrite(_stichpunkt_1_2),
+            Unwrite(_stichpunkt_1_3),
+            run_time=2
+        )
+
+        self.wait(speed)
+
+        self.play(
+            Uncreate(p1_ges),
+            Uncreate(p2_ges),
+        )
+
+        self.wait(speed)
+
+        tangente_p1.set_opacity(0)
+        tangente_p2.set_opacity(0)
+
+        self.play(
+            Unwrite(funktionsterm),
+            Unwrite(abgl_term),
+            Unwrite(abgl_term_2),
+            Uncreate(funktion),
+            Uncreate(Ableitung),
+            Uncreate(Ableitung_2),
+            Uncreate(achsenbeschriftung),
+            run_time=2
+        )
+
+        self.wait(speed)
+
+        _achsen = Axes(
+            x_range=[-0.1, 6.5],
+            y_range=[-0.1, 9.5],
+            axis_config={"color": WHITE},
+        )
+
+        self.play(ReplacementTransform(achsen, _achsen), run_time=2)
+
+        # -(1/4)x^3 + (3/2)x^2 + 1
+        # für -0.1 <= x <= 6.5 plotten
+        # also -0.1 <= y <= 9.5
+        _funktion = achsen.plot(
+            lambda x: -(1/4)*x**3 + (3/2)*x**2 + 1,
+            x_range=[-0.1, 6.5],
+            color=GOLD
+        )
+        self.play(Create(_funktion), run_time=1)
+
+        self.wait(2)
+
+        # TODO: Graphen fertig machen (Achsenbeschriftung, Schrittweite)
+        # natürlich den Rest...
