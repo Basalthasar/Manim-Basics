@@ -204,6 +204,8 @@ class Extremata(Scene):
         self.wait(2)
 
         # Szene aufräumen
+        tangente_p1.set_opacity(0)
+        tangente_p2.set_opacity(0)
 
         self.play(
             Unwrite(_stichpunkt_1),
@@ -216,16 +218,6 @@ class Extremata(Scene):
         self.wait(speed)
 
         self.play(
-            Uncreate(p1_ges),
-            Uncreate(p2_ges),
-        )
-
-        self.wait(speed)
-
-        tangente_p1.set_opacity(0)
-        tangente_p2.set_opacity(0)
-
-        self.play(
             Unwrite(funktionsterm),
             Unwrite(abgl_term),
             Unwrite(abgl_term_2),
@@ -233,6 +225,10 @@ class Extremata(Scene):
             Uncreate(Ableitung),
             Uncreate(Ableitung_2),
             Uncreate(achsenbeschriftung),
+            Uncreate(p1),
+            Uncreate(p1_beschriftung),
+            Uncreate(p2),
+            Uncreate(p2_beschriftung),
             run_time=2
         )
 
@@ -240,23 +236,28 @@ class Extremata(Scene):
 
         _achsen = Axes(
             x_range=[-0.1, 6.5],
-            y_range=[-0.1, 9.5],
+            y_range=[-0.1, 9.9],
             axis_config={"color": WHITE},
         )
+        achsenbeschriftung = _achsen.get_axis_labels(x_label="x", y_label="y")
 
-        self.play(ReplacementTransform(achsen, _achsen), run_time=2)
+        self.play(Transform(achsen, _achsen), run_time=2)
 
         # -(1/4)x^3 + (3/2)x^2 + 1
         # für -0.1 <= x <= 6.5 plotten
         # also -0.1 <= y <= 9.5
-        _funktion = achsen.plot(
-            lambda x: -(1/4)*x**3 + (3/2)*x**2 + 1,
-            x_range=[-0.1, 6.5],
-            color=GOLD
-        )
-        self.play(Create(_funktion), run_time=1)
+        _funktion = _achsen.plot(lambda x: (-(1/4))*x**3 + (3/2)*x**2 + 1, x_range=[-0.1, 6.5], color=GOLD)
 
-        self.wait(2)
+        self.play(Create(_achsen), run_time=1)
 
+        self.wait(speed)
+        self.play(Create(achsenbeschriftung), run_time=0.5)
+        self.play(Write(_achsen.add_coordinates()))
+        self.wait(speed)
+        self.play(Create(_funktion), run_time=2)
+        self.wait(speed)
+        
         # TODO: Graphen fertig machen (Achsenbeschriftung, Schrittweite)
         # natürlich den Rest...
+
+        self.wait(2)
