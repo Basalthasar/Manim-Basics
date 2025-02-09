@@ -1,6 +1,8 @@
 from manim import *
 import numpy as np
 
+config.max_files_cached = 500
+
 class Extremata(Scene):
 
     def f_strich(self, x):
@@ -236,7 +238,7 @@ class Extremata(Scene):
 
         _achsen = Axes(
             x_range=[-0.1, 6.5],
-            y_range=[-0.1, 9.9],
+            y_range=[-2, 9.9],
             axis_config={"color": WHITE},
         )
         achsenbeschriftung = _achsen.get_axis_labels(x_label="x", y_label="y")
@@ -246,7 +248,25 @@ class Extremata(Scene):
         # -(1/4)x^3 + (3/2)x^2 + 1
         # für -0.1 <= x <= 6.5 plotten
         # also -0.1 <= y <= 9.5
-        _funktion = _achsen.plot(lambda x: (-(1/4))*x**3 + (3/2)*x**2 + 1, x_range=[-0.1, 6.5], color=GOLD)
+        _funktion = _achsen.plot(lambda x: (-(1/4))*x**3 + (3/2)*x**2 + 1, x_range=[-0.1, 6.2], color=GOLD)
+        _funktionsterm = MathTex("f(x) = -\\frac{1}{4}x^3 + \\frac{3}{2}x^2 + 1", color=GOLD)
+        _funktionsterm.scale(0.5).move_to(_achsen.c2p(1, 8.5))
+
+        _ableitung = _achsen.plot(lambda x: -(3/4)*x**2 + 3*x, x_range=[-0.1, 4.5], color=LIGHT_BROWN)
+        _abgl_term = MathTex("f'(x) = -\\frac{3}{4}x^2 + 3x", color=LIGHT_BROWN)
+        _abgl_term.scale(0.5).next_to(_funktionsterm, DOWN)
+
+        _ableitung2 = _achsen.plot(lambda x: -(3/2)*x + 3, x_range=[-0.1, 4], color=ORANGE)
+        _abgl_term2 = MathTex("f''(x) = -\\frac{3}{2}x + 3", color=ORANGE)
+        _abgl_term2.scale(0.5).next_to(_abgl_term, DOWN)
+
+        _ableitung3 = _achsen.plot(lambda x: -(3/2), x_range=[-0.1, 6.5], color=DARK_BROWN)
+        _abgl_term3 = MathTex("f'''(x) = -\\frac{3}{2}", color=DARK_BROWN)
+        _abgl_term3.scale(0.5).next_to(_abgl_term2, DOWN)
+
+        _funktionen = VGroup(_funktion, _ableitung, _ableitung2, _ableitung3)
+        _terme = VGroup(_funktionsterm, _abgl_term, _abgl_term2, _abgl_term3)
+        graph_ganz = VGroup(_achsen, achsenbeschriftung, _funktionen, _terme)
 
         self.play(Create(_achsen), run_time=1)
 
@@ -254,9 +274,13 @@ class Extremata(Scene):
         self.play(Create(achsenbeschriftung), run_time=0.5)
         self.play(Write(_achsen.add_coordinates()))
         self.wait(speed)
-        self.play(Create(_funktion), run_time=2)
-        self.wait(speed)
-        
+
+        for i in range(4):
+            self.play(Create(_funktionen[i]), run_time=1)
+            self.wait(speed)
+            self.play(Write(_terme[i]), run_time=0.5)
+            self.wait(speed)
+
         # TODO: Graphen fertig machen (Achsenbeschriftung, Schrittweite)
         # natürlich den Rest...
 
