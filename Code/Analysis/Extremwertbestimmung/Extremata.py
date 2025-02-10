@@ -250,10 +250,9 @@ class Extremata(Scene):
             y_range=[-2, 9.9],
             axis_config={"color": WHITE},
         )
-        achsenbeschriftung = _achsen.get_axis_labels(x_label="x", y_label="y")
+        _achsenbeschriftung = _achsen.get_axis_labels(x_label="x", y_label="y")
 
         self.play(Transform(achsen, _achsen), run_time=2)
-        self.remove(achsen)
 
         # -(1/4)x^3 + (3/2)x^2 + 1
         # für -0.1 <= x <= 6.5 plotten
@@ -276,21 +275,22 @@ class Extremata(Scene):
 
         _funktionen = VGroup(_funktion, _ableitung, _ableitung2, _ableitung3)
         _terme = VGroup(_funktionsterm, _abgl_term, _abgl_term2, _abgl_term3)
-        _graph_ganz = VGroup(_achsen, achsenbeschriftung, _funktionen, _terme)
-
-        self.play(Create(_achsen), run_time=1)
 
         self.wait(speed)
-        self.play(Create(achsenbeschriftung), run_time=0.5)
+        self.play(Create(_achsenbeschriftung), run_time=0.5)
+        self.wait(speed)
         self.play(Write(_achsen.add_coordinates()))
-        self.wait(speed)
+        
+        _graph_ganz = VGroup(_achsen, _achsenbeschriftung, _funktionen, _terme)
 
         for i in range(4):
+            self.wait(speed)
             self.play(Create(_funktionen[i]), run_time=1)
             self.wait(speed)
             self.play(Write(_terme[i]), run_time=0.5)
-            self.wait(speed)
 
+        self.wait(speed)
+        self.remove(achsen)
         self.play(_graph_ganz.animate.shift(LEFT * 2).scale(0.8), run_time=2)
 
         hp = Dot(_funktion.get_point_from_function(4), color=BLUE_E)
@@ -305,26 +305,52 @@ class Extremata(Scene):
         tangente_wp = _achsen.plot(self._tangente(_achsen.p2c(wp.get_center()[0])[0]), x_range=[-0.1, 3.5], color=GREEN)
         wp_Betonung = DashedLine(start=wp.get_center(), end=_achsen.c2p(2, 0), color=WHITE).set_z_index(-5)
 
-        # Stichpunkte
-        __stichpunkt_1 = Text("Neben den Extrempunkten \nexistiert ein weiterer \ncharakteristischer Punkt", color=WHITE).scale(0.45).next_to(_graph_ganz, RIGHT, buff=0.1).shift(UP*1.5)
-        __stichpunkt_1_2 = BulletedList("Ein sog. Wendepunkt $p_3$", color=WHITE).scale(0.6).next_to(__stichpunkt_1, DOWN).shift(RIGHT * 0.0250625)
-        __stichpunkt_1_3 = BulletedList("Für $p_3$ gilt: $f''(p_3) = 0$", color=WHITE).scale(0.6).next_to(__stichpunkt_1_2, DOWN).shift(RIGHT * 0.25)
-        
-        __stichpunkt_2 = Text("Unterschiedliche Arten von\nWendepunkten:", color=WHITE).scale(0.45).next_to(__stichpunkt_1, DOWN * 5.5)
-        __stichpunkt_2_1 = BulletedList("Stärkste Steigung, wie in $p_3$", color=WHITE).scale(0.6).next_to(__stichpunkt_2, DOWN)  
-        __stichpunkt_2_2 = BulletedList("Stärkstes Gefälle", color=WHITE).scale(0.6)
-        __stichpunkte_2_ = VGroup(__stichpunkt_2_1, __stichpunkt_2_2).arrange(DOWN, aligned_edge=LEFT).next_to(__stichpunkt_2, DOWN).shift(RIGHT * 0.25)  
+        __stichpunkt_1 = Text("Neben den Extrempunkten \nexistiert ein weiterer \ncharakteristischer Punkt", color=WHITE)\
+            .scale(0.45)\
+            .next_to(_graph_ganz, RIGHT, buff=0.1)\
+            .shift(UP * 1.5)
+        __stichpunkt_1_2 = BulletedList("Ein sog. Wendepunkt $p_3$", color=WHITE)\
+            .scale(0.6)\
+            .next_to(__stichpunkt_1, DOWN, aligned_edge=LEFT)\
+            .shift(RIGHT * 0.2)
+        __stichpunkt_1_3 = BulletedList("Für $p_3$ gilt: $f''(p_3) = 0$", color=WHITE)\
+            .scale(0.6)\
+            .next_to(__stichpunkt_1_2, DOWN, aligned_edge=LEFT)\
+            .shift(RIGHT * 0.4)
+
+        __stichpunkt_2 = Text("Unterschiedliche Arten von\nWendepunkten:", color=WHITE)\
+            .scale(0.45)\
+            .next_to(__stichpunkt_1_3, DOWN, buff=0.3)\
+            .shift(LEFT * 0.4)
+        __stichpunkt_2_1 = BulletedList("Stärkste Steigung, wie in $p_3$", color=WHITE)\
+            .scale(0.6)\
+            .next_to(__stichpunkt_2, DOWN, aligned_edge=LEFT)\
+            .shift(RIGHT * 0.2)
+        __stichpunkt_2_1_2 = BulletedList("wobei gilt: $f'''(p_3) < 0$", color=WHITE)\
+            .scale(0.6)\
+            .next_to(__stichpunkt_2_1, DOWN, aligned_edge=LEFT)\
+            .shift(RIGHT * 0.4)
+        __stichpunkt_2_2 = BulletedList("Stärkstes Gefälle", color=WHITE)\
+            .scale(0.6)\
+            .next_to(__stichpunkt_2_1_2, DOWN, aligned_edge=LEFT)\
+            .shift(LEFT * 0.4)
+        __stichpunkt_2_2_2 = BulletedList("wobei gilt: $f'''(x) > 0$", color=WHITE)\
+            .scale(0.6)\
+            .next_to(__stichpunkt_2_2, DOWN, aligned_edge=LEFT)\
+            .shift(RIGHT * 0.4)
 
         # Colorcoding
         __stichpunkt_1_2[0][18:20].set_color(GREEN)
         __stichpunkt_1_3[0][5:7].set_color(GREEN)
         __stichpunkt_1_3[0][16:18].set_color(GREEN)
-
         __stichpunkt_2_1[0][24:26].set_color(GREEN)
+        __stichpunkt_2_1_2[0][16:18].set_color(GREEN)
+
+        __stichpunkte = VGroup(__stichpunkt_1, __stichpunkt_1_2, __stichpunkt_1_3, __stichpunkt_2, __stichpunkt_2_1, __stichpunkt_2_1_2, __stichpunkt_2_2, __stichpunkt_2_2_2)
 
         self.wait(speed)
 
-        self.play(Write(__stichpunkt_1), run_time=2)
+        self.play(Write(__stichpunkt_1))
         self.play(
             Create(hp),
             GrowFromPoint(tangente_hp, _funktion.get_point_from_function(4)),
@@ -348,22 +374,47 @@ class Extremata(Scene):
         )
 
         self.wait(speed)
-
-        self.play(Write(__stichpunkt_1_2), run_time=1)
-        self.wait(speed)
-        self.play(Write(__stichpunkt_1_3), run_time=1)
+        self.play(Write(__stichpunkt_1_2), Write(__stichpunkt_1_3), run_time=2)
         self.wait(speed)
         self.play(Create(wp), GrowFromPoint(tangente_wp, _funktion.get_point_from_function(2)), GrowFromEdge(wp_Betonung, _funktion.get_point_from_function(2)), run_time=2)
         self.wait(speed)
-        self.play(Write(__stichpunkt_2), run_time=1)
+        self.play(Write(__stichpunkt_2))
         self.wait(speed)
-        self.play(Write(__stichpunkt_2_1), run_time=1)
+        self.play(Write(__stichpunkt_2_1), Write(__stichpunkt_2_1_2), run_time=2)
         self.wait(speed)
         self.play(Flash(wp), run_time=2)
         self.wait(speed)
-        self.play(Write(__stichpunkt_2_2), run_time=1)
+        self.play(Write(__stichpunkt_2_2), Write(__stichpunkt_2_2_2), run_time=2)
         self.wait(speed)
-        
-        # natürlich den Rest...
+        self.play(Circumscribe(__stichpunkt_2_1_2[0][19:20], color=YELLOW), run_time=1)
+        self.wait(speed)
+        self.play(Circumscribe(__stichpunkt_2_2_2[0][18:19], color=YELLOW), run_time=1)
+        self.wait(speed)
+
+        self.wait(2)
+
+        # Szene leeren
+
+        self.play(
+            Unwrite(__stichpunkte),
+            Uncreate(wp),
+            ShrinkToCenter(tangente_wp),
+            ShrinkToCenter(wp_Betonung),
+            Uncreate(_funktion),
+            Uncreate(_ableitung),
+            Uncreate(_ableitung2),
+            Uncreate(_ableitung3),
+            Uncreate(_funktionsterm),
+            Uncreate(_abgl_term),
+            Uncreate(_abgl_term2),
+            Uncreate(_abgl_term3),
+            Unwrite(_achsenbeschriftung),
+            Uncreate(_achsen),
+            run_time=3
+        )
+
+        self.wait(speed)
+
+        self.play(titel.animate.scale(1.5384).move_to(ORIGIN), run_time=2)
 
         self.wait(2)
