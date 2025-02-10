@@ -8,11 +8,20 @@ class Extremata(Scene):
     def f_strich(self, x):
         # Ableitung der Funktion f(x) = x^3 + x^2
         return 3*x**2 + 2*x
+    
+    def _f_strich(self, x):
+        # Ableitung der Funktion f(x) = -(1/4)x^3 + (3/2)x^2 + 1
+        return -(3/4)*x**2 + 3*x
 
     def tangente(self, x0):
         # Berechnet die Tangente an der Stelle x0
-        slope = self.f_strich(x0)
-        return lambda x: slope * (x - x0) + (x0**3 + x0**2)
+        Steigung = self.f_strich(x0)
+        return lambda x: Steigung * (x - x0) + (x0**3 + x0**2)
+    
+    def _tangente(self, x0):
+        # Berechnet die Tangente an der Stelle x0
+        Steigung = self._f_strich(x0)
+        return lambda x: Steigung * (x - x0) + (-(1/4)*x0**3 + (3/2)*x0**2 + 1)
 
     def construct(self):
 
@@ -138,7 +147,7 @@ class Extremata(Scene):
         tangente_p2 = achsen.plot(self.tangente(achsen.p2c(p2.get_center()[0])[0]), x_range=[-1.5, 0.8], color=RED_E)
 
         # Tangenten und Stichpunkte animieren
-        self.play(GrowFromCenter(tangente_p1), GrowFromCenter(tangente_p2), Write(stichpunkt_1_1), Write(stichpunkt_1_2), run_time=2)
+        self.play(GrowFromPoint(tangente_p1, p1.get_center()), GrowFromPoint(tangente_p2, p2.get_center()), Write(stichpunkt_1_1), Write(stichpunkt_1_2), run_time=2)
         self.wait(2)
         self.play(ShrinkToCenter(tangente_p1), ShrinkToCenter(tangente_p2), run_time=1)
 
@@ -244,19 +253,20 @@ class Extremata(Scene):
         achsenbeschriftung = _achsen.get_axis_labels(x_label="x", y_label="y")
 
         self.play(Transform(achsen, _achsen), run_time=2)
+        self.remove(achsen)
 
         # -(1/4)x^3 + (3/2)x^2 + 1
         # für -0.1 <= x <= 6.5 plotten
         # also -0.1 <= y <= 9.5
-        _funktion = _achsen.plot(lambda x: (-(1/4))*x**3 + (3/2)*x**2 + 1, x_range=[-0.1, 6.2], color=GOLD)
+        _funktion = _achsen.plot(lambda x: (-(1/4))*x**3 + (3/2)*x**2 + 1, x_range=[-0.1, 6.3], color=GOLD)
         _funktionsterm = MathTex("f(x) = -\\frac{1}{4}x^3 + \\frac{3}{2}x^2 + 1", color=GOLD)
-        _funktionsterm.scale(0.5).move_to(_achsen.c2p(1, 8.5))
+        _funktionsterm.scale(0.5).move_to(_achsen.c2p(0.8, 8.25))
 
         _ableitung = _achsen.plot(lambda x: -(3/4)*x**2 + 3*x, x_range=[-0.1, 4.5], color=LIGHT_BROWN)
         _abgl_term = MathTex("f'(x) = -\\frac{3}{4}x^2 + 3x", color=LIGHT_BROWN)
         _abgl_term.scale(0.5).next_to(_funktionsterm, DOWN)
 
-        _ableitung2 = _achsen.plot(lambda x: -(3/2)*x + 3, x_range=[-0.1, 4], color=ORANGE)
+        _ableitung2 = _achsen.plot(lambda x: -(3/2)*x + 3, x_range=[-0.1, 3.25], color=ORANGE)
         _abgl_term2 = MathTex("f''(x) = -\\frac{3}{2}x + 3", color=ORANGE)
         _abgl_term2.scale(0.5).next_to(_abgl_term, DOWN)
 
@@ -266,7 +276,7 @@ class Extremata(Scene):
 
         _funktionen = VGroup(_funktion, _ableitung, _ableitung2, _ableitung3)
         _terme = VGroup(_funktionsterm, _abgl_term, _abgl_term2, _abgl_term3)
-        graph_ganz = VGroup(_achsen, achsenbeschriftung, _funktionen, _terme)
+        _graph_ganz = VGroup(_achsen, achsenbeschriftung, _funktionen, _terme)
 
         self.play(Create(_achsen), run_time=1)
 
@@ -281,7 +291,79 @@ class Extremata(Scene):
             self.play(Write(_terme[i]), run_time=0.5)
             self.wait(speed)
 
-        # TODO: Graphen fertig machen (Achsenbeschriftung, Schrittweite)
+        self.play(_graph_ganz.animate.shift(LEFT * 2).scale(0.8), run_time=2)
+
+        hp = Dot(_funktion.get_point_from_function(4), color=BLUE_E)
+        tangente_hp = _achsen.plot(self._tangente(_achsen.p2c(hp.get_center()[0])[0]), x_range=[-0.1, 6.5], color=BLUE_E)
+        hp_Betonung = DashedLine(start=hp.get_center(), end=_achsen.c2p(4, 0), color=WHITE).set_z_index(-5)
+        
+        tp = Dot(_funktion.get_point_from_function(0), color=RED_E)
+        tangente_tp = _achsen.plot(self._tangente(_achsen.p2c(tp.get_center()[0])[0]), x_range=[-0.1, 6.5], color=RED_E)
+        tp_Betonung = DashedLine(start=tp.get_center(), end=_achsen.c2p(0, 0), color=WHITE).set_z_index(-5)
+
+        wp = Dot(_funktion.get_point_from_function(2), color=GREEN)
+        tangente_wp = _achsen.plot(self._tangente(_achsen.p2c(wp.get_center()[0])[0]), x_range=[-0.1, 3.5], color=GREEN)
+        wp_Betonung = DashedLine(start=wp.get_center(), end=_achsen.c2p(2, 0), color=WHITE).set_z_index(-5)
+
+        # Stichpunkte
+        __stichpunkt_1 = Text("Neben den Extrempunkten \nexistiert ein weiterer \ncharakteristischer Punkt", color=WHITE).scale(0.45).next_to(_graph_ganz, RIGHT, buff=0.1).shift(UP*1.5)
+        __stichpunkt_1_2 = BulletedList("Ein sog. Wendepunkt $p_3$", color=WHITE).scale(0.6).next_to(__stichpunkt_1, DOWN).shift(RIGHT * 0.0250625)
+        __stichpunkt_1_3 = BulletedList("Für $p_3$ gilt: $f''(p_3) = 0$", color=WHITE).scale(0.6).next_to(__stichpunkt_1_2, DOWN).shift(RIGHT * 0.25)
+        
+        __stichpunkt_2 = Text("Unterschiedliche Arten von\nWendepunkten:", color=WHITE).scale(0.45).next_to(__stichpunkt_1, DOWN * 5.5)
+        __stichpunkt_2_1 = BulletedList("Stärkste Steigung, wie in $p_3$", color=WHITE).scale(0.6).next_to(__stichpunkt_2, DOWN)  
+        __stichpunkt_2_2 = BulletedList("Stärkstes Gefälle", color=WHITE).scale(0.6)
+        __stichpunkte_2_ = VGroup(__stichpunkt_2_1, __stichpunkt_2_2).arrange(DOWN, aligned_edge=LEFT).next_to(__stichpunkt_2, DOWN).shift(RIGHT * 0.25)  
+
+        # Colorcoding
+        __stichpunkt_1_2[0][18:20].set_color(GREEN)
+        __stichpunkt_1_3[0][5:7].set_color(GREEN)
+        __stichpunkt_1_3[0][16:18].set_color(GREEN)
+
+        __stichpunkt_2_1[0][24:26].set_color(GREEN)
+
+        self.wait(speed)
+
+        self.play(Write(__stichpunkt_1), run_time=2)
+        self.play(
+            Create(hp),
+            GrowFromPoint(tangente_hp, _funktion.get_point_from_function(4)),
+            GrowFromEdge(hp_Betonung, _funktion.get_point_from_function(4)),
+            Create(tp),
+            GrowFromPoint(tangente_tp, _funktion.get_point_from_function(0)),
+            GrowFromEdge(tp_Betonung, _funktion.get_point_from_function(0)),
+            run_time=2
+        )
+
+        self.wait(speed)
+
+        self.play(
+            Uncreate(hp),
+            Uncreate(tp),
+            ShrinkToCenter(tangente_hp),
+            ShrinkToCenter(tangente_tp),
+            ShrinkToCenter(hp_Betonung),
+            ShrinkToCenter(tp_Betonung),
+            run_time=2
+        )
+
+        self.wait(speed)
+
+        self.play(Write(__stichpunkt_1_2), run_time=1)
+        self.wait(speed)
+        self.play(Write(__stichpunkt_1_3), run_time=1)
+        self.wait(speed)
+        self.play(Create(wp), GrowFromPoint(tangente_wp, _funktion.get_point_from_function(2)), GrowFromEdge(wp_Betonung, _funktion.get_point_from_function(2)), run_time=2)
+        self.wait(speed)
+        self.play(Write(__stichpunkt_2), run_time=1)
+        self.wait(speed)
+        self.play(Write(__stichpunkt_2_1), run_time=1)
+        self.wait(speed)
+        self.play(Flash(wp), run_time=2)
+        self.wait(speed)
+        self.play(Write(__stichpunkt_2_2), run_time=1)
+        self.wait(speed)
+        
         # natürlich den Rest...
 
         self.wait(2)
