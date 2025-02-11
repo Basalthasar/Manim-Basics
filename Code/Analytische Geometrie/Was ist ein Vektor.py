@@ -103,16 +103,16 @@ class Analytische_Geometrie_t1(Scene):
 
         # Einführung: Text
         Stichpunkt_1 = Tex("Um zum Punkt $p_1 (1|1)$ zu gelangen")
-        Stichpunkt_1_1 = BulletedList("muss man vom Ursprung 1 LE in die x-Richtung gehen", "eine weitere LE in die y-Richtung").scale(0.65)
+        Stichpunkt_1_1 = BulletedList("muss man vom Ursprung 1 LE in die x-Richtung gehen", "und eine weitere LE in die y-Richtung").scale(0.65)
 
         # Positionierung
-        Stichpunkte = VGroup(Stichpunkt_1, Stichpunkt_1_1).arrange(DOWN, buff=0.25).next_to(achsen, RIGHT, buff=0.25).shift(UP*2.5)
-        Stichpunkt_1_1.move_to(RIGHT * 0.25) # FIXME: indent
+        Stichpunkte = VGroup(Stichpunkt_1, Stichpunkt_1_1).arrange(DOWN, buff=0.25).next_to(achsen, RIGHT, buff=0.5).shift(UP*2.25)
+        Stichpunkt_1_1.shift(RIGHT * 0.25)
 
         # Colorcoding
         Stichpunkt_1[0][10:12].set_color(YELLOW)
         Stichpunkt_1_1[0][19:37].set_color(RED)
-        Stichpunkt_1_1[1][1:500].set_color(GREEN)
+        Stichpunkt_1_1[1][4:500].set_color(GREEN)
 
         vektor_x_path = ParametricFunction(
             lambda t: achsen.c2p(0, 0, 0) + t*(achsen.c2p(1, 0, 0) - achsen.c2p(0, 0, 0)),
