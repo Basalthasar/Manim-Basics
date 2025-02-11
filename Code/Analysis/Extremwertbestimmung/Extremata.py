@@ -1,8 +1,6 @@
 from manim import *
 import numpy as np
 
-config.max_files_cached = 500
-
 class Extremata(Scene):
 
     def f_strich(self, x):
@@ -131,7 +129,7 @@ class Extremata(Scene):
         stichpunkt_2_2_2 = BulletedList("Tiefpunkt $p_2$", color=WHITE).scale(0.6)
 
         # Colorcoding 
-        stichpunkt_1_1[0][16:18].set_color(BLUE_E) # zählt: (Leer-)Zeichen, unterstufige Zeichen, vermutl. Exponenten -- Zählt nicht: _ oder $
+        stichpunkt_1_1[0][16:18].set_color(BLUE_E) # zählt: unterstufige Zeichen, vermutl. Exponenten -- Zählt nicht: (Leer-)Zeichen, _ oder $
         stichpunkt_1_1[0][22:24].set_color(BLUE_E)
         stichpunkt_1_2[0][16:18].set_color(RED_E)
         stichpunkt_1_2[0][22:24].set_color(RED_E)
