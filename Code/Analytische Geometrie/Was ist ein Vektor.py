@@ -183,9 +183,13 @@ class Analytische_Geometrie_t1(ThreeDScene):
             GrowFromPoint(vektor_z3d, achsen3d.c2p(1, 1, 0)),
             run_time=3
         )
+        achsen.set_opacity(0)
+
+        graph_ganz3d = VGroup(achsen3d, x_label3d, y_label3d, z_label3d, vektor_x3d, vektor_y3d, vektor_z3d, p_13d, p_1_m3d, p_1_beschriftung3d)
 
         self.play(
-            achsen.animate.shift(DOWN)
+            graph_ganz3d.animate.move_to(RIGHT),
+            run_time=1
         )
 
         # holy shwabooms, das wird schwierig
