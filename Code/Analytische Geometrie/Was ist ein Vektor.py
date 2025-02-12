@@ -167,7 +167,7 @@ class Analytische_Geometrie_t1(ThreeDScene):
             run_time=1
         )
 
-        self.move_camera(phi=45 * DEGREES, theta=45 * DEGREES, zoom=1.5, run_time=1.5)
+        self.move_camera(phi=45*DEGREES, theta=45*DEGREES, zoom=0.75, run_time=1.5)
 
         self.play(
             ReplacementTransform(p_1_beschriftung, p_1_beschriftung3d),
@@ -188,7 +188,7 @@ class Analytische_Geometrie_t1(ThreeDScene):
         graph_ganz3d = VGroup(achsen3d, x_label3d, y_label3d, z_label3d, vektor_x3d, vektor_y3d, vektor_z3d, p_13d, p_1_m3d, p_1_beschriftung3d)
 
         self.play(
-            graph_ganz3d.animate.move_to(RIGHT),
+            graph_ganz3d.animate.scale(2).move_to(RIGHT * 2.5 + DOWN * 3),
             run_time=1
         )
 
