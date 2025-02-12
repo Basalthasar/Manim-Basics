@@ -4,7 +4,7 @@ config.frame_rate = 60
 config.max_files_cached = 500
 
 class Analytische_Geometrie_t1(ThreeDScene):
-
+    
     def Stichpunkt(self, content, size=18):
         # Stichpunkt und Inhalt
         Stichpunkt = Text("→", font_size=size)
@@ -120,11 +120,9 @@ class Analytische_Geometrie_t1(ThreeDScene):
         # Einführung: Text
         Stichpunkt_1 = Tex("Um zum Punkt $p_1 (1|1)$ zu gelangen\\\\ gilt in einem (2d) Koordinatensystem:").scale(0.95)
         Stichpunkt_1_1 = BulletedList("Eine Längeneinheit in die x-Richtung gehen", "und eine weitere Längeneinheit in die y-Richtung").scale(0.65)
-        # Stichpunkt_2 = Tex("Erweitert man das Koordinatensystem\\\\um eine weitere Dimension...").scale(0.95)
-        # Stichpunkt_2_1 = BulletedList("eine weitere LE in die z-Richtung gehen").scale(0.65)
 
         # Positionierung
-        Stichpunkte = VGroup(Stichpunkt_1, Stichpunkt_1_1).arrange(DOWN, buff=0.25, aligned_edge=LEFT).next_to(achsen, RIGHT, buff=0.5).shift(UP*1.25)
+        Stichpunkte = VGroup(Stichpunkt_1, Stichpunkt_1_1).arrange(DOWN, buff=0.25, aligned_edge=LEFT).next_to(achsen, RIGHT, buff=0.5).shift(UP)
         Stichpunkt_1_1.shift(RIGHT * 0.25)
 
         # Colorcoding
@@ -187,11 +185,27 @@ class Analytische_Geometrie_t1(ThreeDScene):
 
         graph_ganz3d = VGroup(achsen3d, x_label3d, y_label3d, z_label3d, vektor_x3d, vektor_y3d, vektor_z3d, p_13d, p_1_m3d, p_1_beschriftung3d)
 
-        self.play(
-            graph_ganz3d.animate.scale(2).move_to(RIGHT * 2.5 + DOWN * 3),
-            run_time=1
-        )
+        self.play(graph_ganz3d.animate.scale(2).move_to(RIGHT * 2.5 + DOWN * 3), run_time=1)
 
-        # holy shwabooms, das wird schwierig
+        self.wait(speed)
+
+        Stichpunkt_2 = Tex("Erweitert man das Koordinatensystem\\\\um eine weitere Dimension...").scale(0.75)
+        Stichpunkt_2_1 = BulletedList("muss man eine weitere LE in die z-Richtung gehen").scale(0.55)
+        Stichpunkt_2_2 = Tex("Der Punkt $p_1 (1|1|1)$ wird erreicht.").scale(0.75)
+        
+        Stichpunkt_2_1[0][8:500].set_color(BLUE)
+        Stichpunkt_2_2[0][11].set_color(RED); Stichpunkt_2_2[0][13].set_color(GREEN); Stichpunkt_2_2[0][15].set_color(BLUE)
+
+        Stichpunkte_3d = VGroup(Stichpunkt_2, Stichpunkt_2_1, Stichpunkt_2_2).arrange(DOWN, buff=0.25, aligned_edge=LEFT)
+
+        self.add_fixed_in_frame_mobjects(Stichpunkte_3d) # Aus welcher Ecke der Dokumentation das auch immer gekrochen ist...
+
+        Stichpunkte_3d.to_corner(UR).shift(DOWN * 0.25 + LEFT * 0.25)
+        Stichpunkt_2_1.shift(RIGHT * 0.25)
+        
+
+        self.play(Write(Stichpunkte_3d))
+        
+        # p_1_m3d bewegen
 
         self.wait(2)
